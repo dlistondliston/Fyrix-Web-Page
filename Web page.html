@@ -1,145 +1,536 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-GB">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ProFlow Data Solutions</title>
-    <style>
-        :root {
-            --primary: #0f172a;
-            --accent: #2563eb;
-            --light: #f8fafc;
-            --muted: #64748b;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fyrix — Micro Automation + Continuous Improvement</title>
+  <meta name="description" content="Fyrix builds simple micro-automation apps that unlock reliable process data, then uses it to reduce scrap, improve performance, and cut cost—working alongside your SMEs." />
 
-        body {
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            color: var(--primary);
-            background: white;
-            line-height: 1.6;
-        }
+  <style>
+    :root{
+      --bg: #0b1020;
+      --bg2:#0f1730;
+      --card:#121b33;
+      --text:#e8ecff;
+      --muted:#a7b0d6;
+      --line: rgba(255,255,255,.10);
+      --accent:#7c5cff;
+      --accent2:#33d6ff;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 1120px;
+    }
 
-        header {
-            padding: 80px 20px;
-            text-align: center;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
-            color: white;
-        }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f7f8ff;
+        --bg2:#eef1ff;
+        --card:#ffffff;
+        --text:#101428;
+        --muted:#4b5478;
+        --line: rgba(16,20,40,.12);
+        --shadow: 0 10px 30px rgba(16,20,40,.10);
+      }
+    }
 
-        header h1 {
-            font-size: 3rem;
-            margin-bottom: 10px;
-        }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% 0%, rgba(124,92,255,.20), transparent 55%),
+        radial-gradient(900px 500px at 90% 10%, rgba(51,214,255,.16), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      line-height:1.55;
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 56px}
+    .nav{
+      display:flex; align-items:center; justify-content:space-between; gap:16px;
+      padding:14px 14px;
+      border:1px solid var(--line);
+      border-radius:calc(var(--radius) + 8px);
+      background: rgba(255,255,255,.04);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      position: sticky; top: 14px; z-index: 10;
+    }
+    @media (prefers-color-scheme: light){
+      .nav{background: rgba(255,255,255,.75)}
+    }
 
-        header p {
-            font-size: 1.25rem;
-            color: #cbd5f5;
-            max-width: 700px;
-            margin: auto;
-        }
+    .brand{
+      display:flex; align-items:center; gap:12px; min-width: 180px;
+      text-decoration:none;
+    }
+    .logo{
+      width:40px; height:40px; border-radius:12px;
+      display:grid; place-items:center;
+      border:1px solid var(--line);
+      background: linear-gradient(135deg, rgba(124,92,255,.25), rgba(51,214,255,.18));
+    }
+    .brand strong{font-size:16px; letter-spacing:.2px}
+    .brand span{display:block; font-size:12px; color:var(--muted); margin-top:-2px}
 
-        section {
-            padding: 70px 20px;
-            max-width: 1000px;
-            margin: auto;
-        }
+    .navlinks{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end}
+    .navlinks a{
+      text-decoration:none;
+      font-size:13px;
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid transparent;
+    }
+    .navlinks a:hover{
+      color:var(--text);
+      border-color: var(--line);
+      background: rgba(255,255,255,.04);
+    }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
+    .hero{
+      display:grid;
+      grid-template-columns: 1.35fr .85fr;
+      gap:18px;
+      margin-top:18px;
+      align-items:stretch;
+    }
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr}
+    }
 
-        .card {
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            padding: 30px;
-            background: var(--light);
-        }
+    .card{
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.04);
+      box-shadow: var(--shadow);
+      padding:22px;
+    }
+    @media (prefers-color-scheme: light){
+      .card{background: rgba(255,255,255,.9)}
+    }
 
-        .card h3 {
-            margin-top: 0;
-        }
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(28px, 3.4vw, 46px);
+      line-height:1.12;
+      letter-spacing:-.6px;
+    }
+    .lead{
+      margin:0 0 16px;
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+    .pillrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .pill{
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      white-space:nowrap;
+    }
 
-        .cta {
-            text-align: center;
-            background: #f1f5f9;
-            border-radius: 16px;
-            padding: 60px 20px;
-        }
+    .cta{
+      display:flex; gap:10px; flex-wrap:wrap; margin-top:18px
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      border-radius: 14px;
+      padding:11px 14px;
+      text-decoration:none;
+      border:1px solid var(--line);
+      font-size:13px;
+    }
+    .btn.primary{
+      border-color: transparent;
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(51,214,255,.75));
+      color:#061022;
+      font-weight:700;
+    }
+    .btn.secondary{
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+    }
 
-        .cta a {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 14px 28px;
-            background: var(--accent);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-        }
+    .mini h2{margin:0 0 12px; font-size:16px}
+    .mini p{margin:0; color:var(--muted); font-size:13px}
+    .mini .stack{margin-top:14px; display:grid; gap:10px}
+    .mini .item{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding:12px;
+      background: rgba(255,255,255,.03);
+    }
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-    </style>
+    section{margin-top:18px}
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width: 920px){ .grid3{grid-template-columns:1fr} }
+
+    h2{
+      margin: 0 0 8px;
+      font-size: 18px;
+      letter-spacing:-.2px;
+    }
+    .muted{color:var(--muted)}
+    ul.clean{margin:10px 0 0; padding:0; list-style:none; display:grid; gap:10px}
+    ul.clean li{
+      padding:12px 12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background: rgba(255,255,255,.03);
+    }
+    .kicker{
+      font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+      color: var(--muted);
+      margin: 0 0 10px;
+    }
+
+    .how{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      align-items:start;
+    }
+    @media (max-width: 920px){ .how{grid-template-columns:1fr} }
+
+    .steps{display:grid; gap:10px; margin-top:10px}
+    .step{
+      display:flex; gap:12px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px;
+      background: rgba(255,255,255,.03);
+    }
+    .num{
+      width:30px; height:30px; border-radius:10px;
+      display:grid; place-items:center;
+      font-size:13px; font-weight:800;
+      color:#061022;
+      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(51,214,255,.75));
+      flex:0 0 auto;
+    }
+
+    .footer{
+      margin-top:18px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      color: var(--muted);
+      font-size:12px;
+    }
+
+    /* Placeholder logo SVG sizing */
+    svg{display:block}
+    .logo svg{width:26px; height:26px}
+  </style>
 </head>
+
 <body>
+  <div class="wrap">
 
-<header>
-    <h1>ProFlow Data Solutions</h1>
-    <p>Practical data, automation, and analysis solutions for small and mid-sized businesses — without the cost or complexity of large systems.</p>
-</header>
+    <!-- NAV -->
+    <header class="nav">
+      <a class="brand" href="#top" aria-label="Fyrix home">
+        <div class="logo" aria-hidden="true">
+          <!-- LOGO PLACEHOLDER: Replace this SVG with your final logo mark -->
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 12c4-8 12-8 16 0-4 8-12 8-16 0Z" stroke="currentColor" stroke-width="1.8" opacity=".9"/>
+            <path d="M7 12c2.4-4.8 7.6-4.8 10 0-2.4 4.8-7.6 4.8-10 0Z" fill="currentColor" opacity=".35"/>
+            <path d="M12 7.5v9" stroke="currentColor" stroke-width="1.8" opacity=".9"/>
+          </svg>
+        </div>
+        <div>
+          <!-- NAME PLACEHOLDER -->
+          <strong>Fyrix</strong>
+          <span>Micro automation • Process excellence</span>
+        </div>
+      </a>
 
-<section>
-    <h2>What We Do</h2>
-    <div class="features">
-        <div class="card">
-            <h3>Data Management</h3>
-            <p>Clean, structure, and organise your data so it’s reliable, searchable, and useful.</p>
-        </div>
-        <div class="card">
-            <h3>Automation</h3>
-            <p>Remove manual steps, reduce errors, and speed up everyday business processes.</p>
-        </div>
-        <div class="card">
-            <h3>Analysis & Insights</h3>
-            <p>Turn raw data into clear reports and dashboards that support better decisions.</p>
-        </div>
-    </div>
-</section>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#how">How we work</a>
+        <a href="#credibility">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
 
-<section>
-    <h2>Why ProFlow?</h2>
-    <div class="features">
-        <div class="card">
-            <h3>No In-House Team Required</h3>
-            <p>Get expert solutions without hiring, training, or long-term commitments.</p>
-        </div>
-        <div class="card">
-            <h3>Lightweight & Flexible</h3>
-            <p>Custom tools built around your workflows — not rigid, expensive platforms.</p>
-        </div>
-        <div class="card">
-            <h3>Local & Practical</h3>
-            <p>Clear communication, fast turnaround, and solutions you can actually use.</p>
-        </div>
-    </div>
-</section>
+    <!-- HERO -->
+    <main id="top" class="hero">
+      <section class="card">
+        <p class="kicker">Practical improvement, built with your people</p>
+        <h1>We build simple apps that unlock process data — then turn it into measurable improvement.</h1>
+        <p class="lead">
+          Fyrix works alongside your subject matter experts to map real processes, remove friction, and deliver
+          micro-automation tools that replace spreadsheets, paper, and manual admin. With clean data in place, we
+          reduce scrap, improve capability, and drive cost improvement that sticks.
+        </p>
 
-<section class="cta">
-    <h2>Let’s Improve Your Workflow</h2>
-    <p>Tell us what’s slowing your business down — we’ll show you how to fix it.</p>
-    <a href="mailto:hello@proflow.co.uk">Contact Us</a>
-</section>
+        <div class="cta">
+          <a class="btn primary" href="#contact">Book a discovery call</a>
+          <a class="btn secondary" href="#services">See what we deliver</a>
+        </div>
 
-<footer>
-    © 2026 ProFlow Data Solutions · Inverness, Scotland
-</footer>
+        <div class="pillrow" aria-label="Key outcomes">
+          <div class="pill">Scrap reduction</div>
+          <div class="pill">KPI & dashboards</div>
+          <div class="pill">MSA & measurement systems</div>
+          <div class="pill">SOPs & standard work</div>
+          <div class="pill">Cost analysis & CIP delivery</div>
+        </div>
+      </section>
 
+      <aside class="card mini">
+        <h2>What “apps-first” means</h2>
+        <p>
+          We start with a small tool that captures the right data at source — then use it to drive targeted improvement.
+          Quick wins first, scalable foundations next.
+        </p>
+
+        <div class="stack">
+          <div class="item">
+            <strong>Capture</strong>
+            <p>Simple forms + validation to collect clean data (shop floor or office).</p>
+          </div>
+          <div class="item">
+            <strong>Visualise</strong>
+            <p>KPI dashboards, trending, and alerts that highlight what matters.</p>
+          </div>
+          <div class="item">
+            <strong>Improve</strong>
+            <p>Root cause, capability, scrap, and cost improvements backed by evidence.</p>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <!-- SERVICES -->
+    <section id="services" class="card">
+      <p class="kicker">Services</p>
+      <h2>What we can deliver</h2>
+      <p class="muted">Delivered in small, practical chunks to keep cost down while still returning value.</p>
+
+      <div class="grid3" style="margin-top:14px">
+        <div class="card" style="padding:16px">
+          <h2>Micro-automation apps</h2>
+          <p class="muted">Purpose-built tools that replace manual admin and improve data quality.</p>
+          <ul class="clean">
+            <li>Data capture apps (desktop/web)</li>
+            <li>Digital checklists & forms</li>
+            <li>Automated reporting & dashboards</li>
+            <li>Lightweight integrations (where practical)</li>
+          </ul>
+        </div>
+
+        <div class="card" style="padding:16px">
+          <h2>Process excellence</h2>
+          <p class="muted">Structured improvement focused on measurable outcomes.</p>
+          <ul class="clean">
+            <li>Process mapping & waste identification</li>
+            <li>Scrap reduction & yield improvement</li>
+            <li>Cause & effect / root cause analysis</li>
+            <li>KPI definition & performance management</li>
+          </ul>
+        </div>
+
+        <div class="card" style="padding:16px">
+          <h2>Analysis & systems</h2>
+          <p class="muted">Make your measurement and decision-making reliable.</p>
+          <ul class="clean">
+            <li>Measurement System Analysis (MSA)</li>
+            <li>Measurement system creation</li>
+            <li>Statistical analysis & trending</li>
+            <li>Material / process data management</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid3" style="margin-top:14px">
+        <div class="card" style="padding:16px">
+          <h2>Cost improvement</h2>
+          <p class="muted">Identify, quantify, deliver, sustain.</p>
+          <ul class="clean">
+            <li>Cost analysis & opportunity sizing</li>
+            <li>Cost Improvement Projects (CIP)</li>
+            <li>Prioritisation & ROI tracking</li>
+          </ul>
+        </div>
+
+        <div class="card" style="padding:16px">
+          <h2>Standards & documentation</h2>
+          <p class="muted">Create clarity and consistency without bureaucracy.</p>
+          <ul class="clean">
+            <li>SOP creation & simplification</li>
+            <li>Standard work & training aids</li>
+            <li>Audit-ready records (as needed)</li>
+          </ul>
+        </div>
+
+        <div class="card" style="padding:16px">
+          <h2>R&amp;D & introductions</h2>
+          <p class="muted">Support change safely and efficiently.</p>
+          <ul class="clean">
+            <li>Brainstorming & structured ideation</li>
+            <li>New product/process introduction (NPI)</li>
+            <li>Risk-aware experimentation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW -->
+    <section id="how" class="card">
+      <p class="kicker">How we work</p>
+      <h2>SME-led, mapped, built, improved</h2>
+
+      <div class="how">
+        <div>
+          <p class="muted">
+            We don’t arrive with a pre-made system. We start with your people — the SMEs who understand the process best —
+            and build solutions around how work actually happens.
+          </p>
+
+          <div class="steps">
+            <div class="step">
+              <div class="num">1</div>
+              <div>
+                <strong>Listen with SMEs</strong>
+                <div class="muted">Capture pain points, constraints, and what “good” looks like.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">2</div>
+              <div>
+                <strong>Map the process</strong>
+                <div class="muted">Visualise flow, handoffs, data points, and failure modes.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">3</div>
+              <div>
+                <strong>Build micro-automation</strong>
+                <div class="muted">A simple app that improves capture, consistency, and visibility.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">4</div>
+              <div>
+                <strong>Improve & sustain</strong>
+                <div class="muted">KPIs, trending, root cause, and cost-back projects that stick.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="card" style="padding:16px">
+            <h2>What you get quickly</h2>
+            <ul class="clean">
+              <li><strong>Clarity:</strong> a mapped view of how work flows and where it breaks.</li>
+              <li><strong>Control:</strong> clean data capture and standardised reporting.</li>
+              <li><strong>Focus:</strong> KPIs that drive action, not noise.</li>
+              <li><strong>Results:</strong> scrap, cost, or time improvements you can measure.</li>
+            </ul>
+          </div>
+
+          <div class="card" style="padding:16px; margin-top:14px">
+            <h2>Delivery style</h2>
+            <p class="muted">
+              We offer experience in small, practical chunks — keeping costs down while still delivering value and cost back
+              to the business.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CREDIBILITY / STORY -->
+    <section id="credibility" class="card">
+      <p class="kicker">Why Fyrix exists</p>
+      <h2>Medical-device discipline, delivered in an SME-friendly way</h2>
+      <p class="muted" style="max-width: 80ch">
+        Fyrix was conceived to pass on the skills and disciplines developed in the medical device industry — an environment
+        where continuous improvement is not optional, but essential. Through over <strong>40 years of combined experience</strong>
+        in a billion-dollar medical device manufacturer, we’ve benefited from extensive training in process excellence,
+        problem solving, and data-driven improvement, driven by a highly regulated and performance-critical sector.
+      </p>
+      <p class="muted" style="max-width: 80ch; margin-top:10px">
+        Large organisations can afford permanent teams to drive continuous improvement. We understand that this level of
+        resource is harder to sustain in small and medium-sized businesses. Fyrix bridges that gap by delivering
+        enterprise-level capability <strong>in practical, affordable steps</strong>.
+      </p>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="card">
+      <p class="kicker">Contact</p>
+      <h2>Let’s map one process and deliver one improvement</h2>
+      <p class="muted">Share a problem area and we’ll suggest a small first step with clear value.</p>
+
+      <div class="grid3" style="margin-top:14px">
+        <div class="card" style="padding:16px">
+          <h2>Email</h2>
+          <p class="muted">hello@yourdomain.co.uk</p>
+          <p class="muted" style="font-size:12px">Replace with your real address.</p>
+        </div>
+        <div class="card" style="padding:16px">
+          <h2>Phone</h2>
+          <p class="muted">+44 (0)0000 000000</p>
+          <p class="muted" style="font-size:12px">Optional.</p>
+        </div>
+        <div class="card" style="padding:16px">
+          <h2>Location</h2>
+          <p class="muted">Inverness / Highlands (or Remote)</p>
+        </div>
+      </div>
+
+      <!-- Optional: simple contact form (non-functional without backend) -->
+      <div class="card" style="padding:16px; margin-top:14px">
+        <h2>Quick enquiry</h2>
+        <p class="muted" style="margin-top:-2px">This form needs a backend (or a form service) to actually send.</p>
+
+        <form onsubmit="return false" style="display:grid; gap:10px; margin-top:12px">
+          <div style="display:grid; gap:8px; grid-template-columns: 1fr 1fr">
+            <label style="display:grid; gap:6px">
+              <span class="muted" style="font-size:12px">Name</span>
+              <input placeholder="Jane Smith" style="padding:12px; border-radius:14px; border:1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text);" />
+            </label>
+            <label style="display:grid; gap:6px">
+              <span class="muted" style="font-size:12px">Email</span>
+              <input placeholder="jane@company.co.uk" style="padding:12px; border-radius:14px; border:1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text);" />
+            </label>
+          </div>
+          <label style="display:grid; gap:6px">
+            <span class="muted" style="font-size:12px">What process / problem should we look at first?</span>
+            <textarea rows="4" placeholder="e.g., scrap in assembly step 3, manual data capture, inconsistent measurements..."
+              style="padding:12px; border-radius:14px; border:1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text); resize:vertical"></textarea>
+          </label>
+          <div style="display:flex; gap:10px; flex-wrap:wrap">
+            <button class="btn primary" type="submit">Send (placeholder)</button>
+            <a class="btn secondary" href="#top">Back to top</a>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> <strong>Fyrix</strong>. All rights reserved.</div>
+      <div class="muted">Placeholders: replace logo SVG, name text, and contact details.</div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Small nicety: current year
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
