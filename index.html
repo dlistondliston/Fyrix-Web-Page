@@ -46,7 +46,10 @@
       line-height:1.55;
     }
     a{color:inherit}
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 56px}
+    .contact-link{text-decoration:none; color:var(--accent2); transition:color .2s ease, opacity .2s ease}
+    .contact-link:hover{color:var(--accent); opacity:.9}
+    @media (prefers-color-scheme: light){ .contact-link{color:var(--accent)} .contact-link:hover{color:var(--accent2)} }
+    .wrap{max-width:var(--max); margin:0 auto; padding:32px 20px 64px}
     .nav{
       display:flex; align-items:center; justify-content:space-between; gap:16px;
       padding:14px 14px;
@@ -87,6 +90,7 @@
       color:var(--text);
       border-color: var(--line);
       background: rgba(255,255,255,.04);
+      transition: color .2s ease, border-color .2s ease, background .2s ease;
     }
 
     .hero{
@@ -106,7 +110,10 @@
       background: rgba(255,255,255,.04);
       box-shadow: var(--shadow);
       padding:22px;
+      transition: box-shadow .25s ease, border-color .25s ease;
     }
+    .card:hover{ box-shadow: 0 12px 36px rgba(0,0,0,.4); border-color: rgba(255,255,255,.14) }
+    @media (prefers-color-scheme: light){ .card:hover{ box-shadow: 0 12px 32px rgba(16,20,40,.12); border-color: rgba(16,20,40,.18) } }
     @media (prefers-color-scheme: light){
       .card{background: rgba(255,255,255,.9)}
     }
@@ -155,6 +162,8 @@
       background: rgba(255,255,255,.03);
       color: var(--text);
     }
+    .btn:hover{ opacity:.92; transition: opacity .2s ease }
+    .btn.primary:hover{ box-shadow: 0 4px 20px rgba(124,92,255,.35) }
 
     .mini h2{margin:0 0 12px; font-size:16px}
     .mini p{margin:0; color:var(--muted); font-size:13px}
@@ -166,7 +175,7 @@
       background: rgba(255,255,255,.03);
     }
 
-    section{margin-top:18px}
+    section{margin-top:28px}
     .grid3{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -219,7 +228,9 @@
     }
 
     .footer{
-      margin-top:18px;
+      margin-top:36px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
       display:flex;
       justify-content:space-between;
       gap:12px;
@@ -227,6 +238,18 @@
       color: var(--muted);
       font-size:12px;
     }
+
+    .form-input{
+      padding:12px 14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      font: inherit;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .form-input:focus{ outline:none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,92,255,.2) }
+    @media (prefers-color-scheme: light){ .form-input{ background: rgba(16,20,40,.04) } }
 
     /* Placeholder logo SVG sizing */
     svg{display:block}
@@ -478,13 +501,11 @@
       <div class="grid3" style="margin-top:14px">
         <div class="card" style="padding:16px">
           <h2>Email</h2>
-          <p class="muted">hello@yourdomain.co.uk</p>
-          <p class="muted" style="font-size:12px">Replace with your real address.</p>
+          <p class="muted"><a href="mailto:contact@fyrix.uk" class="contact-link">contact@fyrix.uk</a></p>
         </div>
         <div class="card" style="padding:16px">
           <h2>Phone</h2>
-          <p class="muted">+44 (0)0000 000000</p>
-          <p class="muted" style="font-size:12px">Optional.</p>
+          <p class="muted">Get in touch via email and we’ll arrange a call.</p>
         </div>
         <div class="card" style="padding:16px">
           <h2>Location</h2>
@@ -492,47 +513,41 @@
         </div>
       </div>
 
-      <!-- Optional: simple contact form (non-functional without backend) -->
-      <div class="card" style="padding:16px; margin-top:14px">
-        <h2>Quick enquiry</h2>
-        <p class="muted" style="margin-top:-2px">This form needs a backend (or a form service) to actually send.</p>
+      <div class="card contact-cta" style="padding:20px; margin-top:18px">
+        <p class="muted" style="margin:0">Prefer to write? Use the form below or email us at <a href="mailto:contact@fyrix.uk" class="contact-link">contact@fyrix.uk</a>.</p>
+      </div>
 
-        <form onsubmit="return false" style="display:grid; gap:10px; margin-top:12px">
-          <div style="display:grid; gap:8px; grid-template-columns: 1fr 1fr">
+      <!-- Optional: simple contact form (non-functional without backend) -->
+      <div class="card" style="padding:20px; margin-top:14px">
+        <h2>Quick enquiry</h2>
+        <p class="muted" style="margin-top:-2px">Tell us about your process or problem and we’ll suggest a first step.</p>
+
+        <form onsubmit="return false" class="contact-form" style="display:grid; gap:12px; margin-top:16px">
+          <div style="display:grid; gap:10px; grid-template-columns: 1fr 1fr">
             <label style="display:grid; gap:6px">
               <span class="muted" style="font-size:12px">Name</span>
-              <input placeholder="Jane Smith" style="padding:12px; border-radius:14px; border:1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text);" />
+              <input placeholder="Your name" class="form-input" />
             </label>
             <label style="display:grid; gap:6px">
               <span class="muted" style="font-size:12px">Email</span>
-              <input placeholder="jane@company.co.uk" style="padding:12px; border-radius:14px; border:1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text);" />
+              <input type="email" placeholder="you@company.co.uk" class="form-input" />
             </label>
           </div>
           <label style="display:grid; gap:6px">
-            <span class="muted" style="font-size:12px">What process / problem should we look at first?</span>
-            <textarea rows="4" placeholder="e.g., scrap in assembly step 3, manual data capture, inconsistent measurements..."
-              style="padding:12px; border-radius:14px; border:1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text); resize:vertical"></textarea>
+            <span class="muted" style="font-size:12px">What process or problem should we look at first?</span>
+            <textarea rows="4" placeholder="e.g. scrap in assembly, manual data capture, inconsistent measurements…" class="form-input" style="resize:vertical"></textarea>
           </label>
           <div style="display:flex; gap:10px; flex-wrap:wrap">
-            <button class="btn primary" type="submit">Send (placeholder)</button>
+            <a class="btn primary" href="mailto:contact@fyrix.uk?subject=Enquiry from fyrix.uk">Send via email</a>
             <a class="btn secondary" href="#top">Back to top</a>
           </div>
         </form>
       </div>
     </section>
 
-  <div
-    data-taxi-widget
-    data-company="example-company"
-    data-taxi-widget-mode="modal"
-    data-api-base="https://taxi-fare-widget.gpdqdzj9yt.workers.dev"
-  ></div>
-  
-  <script src="https://taxi-fare-widget.gpdqdzj9yt.workers.dev/widget.js?v=2"></script>
-      
       <footer class="footer">
-        <div>© <span id="year"></span> <strong>Fyrix</strong>. All rights reserved.</div>
-        <div class="muted">Placeholders: replace logo SVG, name text, and contact details.</div>
+        <div>© <span id="year"></span> <strong>Fyrix Limited</strong>. All rights reserved.</div>
+        <div class="muted"><a href="mailto:contact@fyrix.uk" class="contact-link">contact@fyrix.uk</a></div>
     </footer>
 
   </div>
