@@ -164,6 +164,7 @@
     }
     .btn:hover{ opacity:.92; transition: opacity .2s ease }
     .btn.primary:hover{ box-shadow: 0 4px 20px rgba(124,92,255,.35) }
+    .btn:disabled{ opacity:.5; cursor:not-allowed; pointer-events:none }
 
     .mini h2{margin:0 0 12px; font-size:16px}
     .mini p{margin:0; color:var(--muted); font-size:13px}
@@ -514,31 +515,30 @@
       </div>
 
       <div class="card contact-cta" style="padding:20px; margin-top:18px">
-        <p class="muted" style="margin:0">Prefer to write? Use the form below or email us at <a href="mailto:contact@fyrix.uk" class="contact-link">contact@fyrix.uk</a>.</p>
+        <p class="muted" style="margin:0">Fill in your details below and click Send — your email app will open with the message addressed to us.</p>
       </div>
 
-      <!-- Optional: simple contact form (non-functional without backend) -->
       <div class="card" style="padding:20px; margin-top:14px">
         <h2>Quick enquiry</h2>
         <p class="muted" style="margin-top:-2px">Tell us about your process or problem and we’ll suggest a first step.</p>
 
-        <form onsubmit="return false" class="contact-form" style="display:grid; gap:12px; margin-top:16px">
+        <form id="contact-form" class="contact-form" style="display:grid; gap:12px; margin-top:16px">
           <div style="display:grid; gap:10px; grid-template-columns: 1fr 1fr">
             <label style="display:grid; gap:6px">
               <span class="muted" style="font-size:12px">Name</span>
-              <input placeholder="Your name" class="form-input" />
+              <input id="contact-name" name="name" placeholder="Your name" class="form-input" required />
             </label>
             <label style="display:grid; gap:6px">
               <span class="muted" style="font-size:12px">Email</span>
-              <input type="email" placeholder="you@company.co.uk" class="form-input" />
+              <input id="contact-email" name="email" type="email" placeholder="you@company.co.uk" class="form-input" required />
             </label>
           </div>
           <label style="display:grid; gap:6px">
             <span class="muted" style="font-size:12px">What process or problem should we look at first?</span>
-            <textarea rows="4" placeholder="e.g. scrap in assembly, manual data capture, inconsistent measurements…" class="form-input" style="resize:vertical"></textarea>
+            <textarea id="contact-message" name="message" rows="4" placeholder="e.g. scrap in assembly, manual data capture, inconsistent measurements…" class="form-input" style="resize:vertical" required></textarea>
           </label>
           <div style="display:flex; gap:10px; flex-wrap:wrap">
-            <a class="btn primary" href="mailto:contact@fyrix.uk?subject=Enquiry from fyrix.uk">Send via email</a>
+            <button type="submit" id="contact-send" class="btn primary" disabled>Send</button>
             <a class="btn secondary" href="#top">Back to top</a>
           </div>
         </form>
@@ -553,8 +553,46 @@
   </div>
 
   <script>
-    // Small nicety: current year
+    // Current year in footer
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Contact form: enable Send when name, email and message are filled; send via mailto
+    (function () {
+      var form = document.getElementById("contact-form");
+      var nameInput = document.getElementById("contact-name");
+      var emailInput = document.getElementById("contact-email");
+      var messageInput = document.getElementById("contact-message");
+      var sendBtn = document.getElementById("contact-send");
+
+      function trim(s) { return (s || "").trim(); }
+      function canSend() {
+        return trim(nameInput.value).length > 0 &&
+               trim(emailInput.value).length > 0 &&
+               trim(messageInput.value).length > 0;
+      }
+      function updateButton() {
+        sendBtn.disabled = !canSend();
+      }
+
+      nameInput.addEventListener("input", updateButton);
+      nameInput.addEventListener("change", updateButton);
+      emailInput.addEventListener("input", updateButton);
+      emailInput.addEventListener("change", updateButton);
+      messageInput.addEventListener("input", updateButton);
+      messageInput.addEventListener("change", updateButton);
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!canSend()) return;
+        var name = trim(nameInput.value);
+        var email = trim(emailInput.value);
+        var message = trim(messageInput.value);
+        var subject = "Enquiry from fyrix.uk – " + name;
+        var body = "Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message;
+        var mailto = "mailto:contact@fyrix.uk?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        window.location.href = mailto;
+      });
+    })();
   </script>
 </body>
 </html>
