@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Fyrix</title>
+  <meta name="description" content="Get in touch. Share a problem area and we'll suggest a small first step with clear value." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="nav">
+      <a class="brand" href="index.html" aria-label="Fyrix home">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 12c4-8 12-8 16 0-4 8-12 8-16 0Z" stroke="currentColor" stroke-width="1.8" opacity=".9"/>
+            <path d="M7 12c2.4-4.8 7.6-4.8 10 0-2.4 4.8-7.6 4.8-10 0Z" fill="currentColor" opacity=".35"/>
+            <path d="M12 7.5v9" stroke="currentColor" stroke-width="1.8" opacity=".9"/>
+          </svg>
+        </div>
+        <div>
+          <strong>Fyrix</strong>
+          <span>Limited</span>
+        </div>
+      </a>
+      <nav class="navlinks" aria-label="Primary">
+        <a href="services.html">Services</a>
+        <a href="how.html">How we work</a>
+        <a href="experience.html">Experience</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <p class="kicker">Contact</p>
+      <h1>Let’s map one process and deliver one improvement</h1>
+      <p class="lead muted">Share a problem area and we’ll suggest a small first step with clear value.</p>
+
+      <div class="grid3" style="margin-top: 28px">
+        <div class="card">
+          <h2>Email</h2>
+          <p class="muted" style="margin: 8px 0 0"><a href="mailto:contact@fyrix.uk" class="contact-link">contact@fyrix.uk</a></p>
+        </div>
+        <div class="card">
+          <h2>Phone</h2>
+          <p class="muted" style="margin: 8px 0 0">Get in touch via email and we’ll arrange a call.</p>
+        </div>
+        <div class="card">
+          <h2>Location</h2>
+          <p class="muted" style="margin: 8px 0 0">Inverness / Highlands (or Remote)</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top: 28px">
+        <h2>Quick enquiry</h2>
+        <p class="muted" style="margin: 8px 0 0">Tell us about your process or problem and we’ll suggest a first step. Fill in your details and click Send — your email app will open with the message addressed to us.</p>
+
+        <form id="contact-form" style="display: grid; gap: 16px; margin-top: 20px; max-width: 480px">
+          <label style="display: grid; gap: 6px">
+            <span class="muted" style="font-size: 12px">Name</span>
+            <input id="contact-name" name="name" placeholder="Your name" class="form-input" required />
+          </label>
+          <label style="display: grid; gap: 6px">
+            <span class="muted" style="font-size: 12px">Email</span>
+            <input id="contact-email" name="email" type="email" placeholder="you@company.co.uk" class="form-input" required />
+          </label>
+          <label style="display: grid; gap: 6px">
+            <span class="muted" style="font-size: 12px">What process or problem should we look at first?</span>
+            <textarea id="contact-message" name="message" rows="4" placeholder="e.g. scrap in assembly, manual data capture, inconsistent measurements…" class="form-input" style="resize: vertical" required></textarea>
+          </label>
+          <div style="display: flex; gap: 12px; flex-wrap: wrap">
+            <button type="submit" id="contact-send" class="btn primary" disabled>Send</button>
+            <a href="index.html" class="btn secondary">Back to home</a>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div>© <span id="year"></span> <strong>Fyrix Limited</strong></div>
+      <a href="mailto:contact@fyrix.uk" class="contact-link">contact@fyrix.uk</a>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function () {
+      var form = document.getElementById("contact-form");
+      var nameInput = document.getElementById("contact-name");
+      var emailInput = document.getElementById("contact-email");
+      var messageInput = document.getElementById("contact-message");
+      var sendBtn = document.getElementById("contact-send");
+
+      function trim(s) { return (s || "").trim(); }
+      function canSend() {
+        return trim(nameInput.value).length > 0 &&
+               trim(emailInput.value).length > 0 &&
+               trim(messageInput.value).length > 0;
+      }
+      function updateButton() { sendBtn.disabled = !canSend(); }
+
+      nameInput.addEventListener("input", updateButton);
+      emailInput.addEventListener("input", updateButton);
+      messageInput.addEventListener("input", updateButton);
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        if (!canSend()) return;
+        var name = trim(nameInput.value);
+        var email = trim(emailInput.value);
+        var message = trim(messageInput.value);
+        var subject = "Enquiry from fyrix.uk – " + name;
+        var body = "Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message;
+        window.location.href = "mailto:contact@fyrix.uk?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      });
+    })();
+  </script>
+</body>
+</html>

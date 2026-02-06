@@ -3,596 +3,137 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Fyrix — Micro Automation + Continuous Improvement</title>
-  <meta name="description" content="Fyrix builds simple micro-automation apps that unlock reliable process data, then uses it to reduce scrap, improve performance, and cut cost—working alongside your SMEs." />
-
-  <style>
-    :root{
-      --bg: #0b1020;
-      --bg2:#0f1730;
-      --card:#121b33;
-      --text:#e8ecff;
-      --muted:#a7b0d6;
-      --line: rgba(255,255,255,.10);
-      --accent:#7c5cff;
-      --accent2:#33d6ff;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 18px;
-      --max: 1120px;
-    }
-
-    @media (prefers-color-scheme: light){
-      :root{
-        --bg:#f7f8ff;
-        --bg2:#eef1ff;
-        --card:#ffffff;
-        --text:#101428;
-        --muted:#4b5478;
-        --line: rgba(16,20,40,.12);
-        --shadow: 0 10px 30px rgba(16,20,40,.10);
-      }
-    }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background:
-        radial-gradient(1200px 600px at 10% 0%, rgba(124,92,255,.20), transparent 55%),
-        radial-gradient(900px 500px at 90% 10%, rgba(51,214,255,.16), transparent 55%),
-        linear-gradient(180deg, var(--bg), var(--bg2));
-      line-height:1.55;
-    }
-    a{color:inherit}
-    .contact-link{text-decoration:none; color:var(--accent2); transition:color .2s ease, opacity .2s ease}
-    .contact-link:hover{color:var(--accent); opacity:.9}
-    @media (prefers-color-scheme: light){ .contact-link{color:var(--accent)} .contact-link:hover{color:var(--accent2)} }
-    .wrap{max-width:var(--max); margin:0 auto; padding:32px 20px 64px}
-    .nav{
-      display:flex; align-items:center; justify-content:space-between; gap:16px;
-      padding:14px 14px;
-      border:1px solid var(--line);
-      border-radius:calc(var(--radius) + 8px);
-      background: rgba(255,255,255,.04);
-      backdrop-filter: blur(10px);
-      box-shadow: var(--shadow);
-      position: sticky; top: 14px; z-index: 10;
-    }
-    @media (prefers-color-scheme: light){
-      .nav{background: rgba(255,255,255,.75)}
-    }
-
-    .brand{
-      display:flex; align-items:center; gap:12px; min-width: 180px;
-      text-decoration:none;
-    }
-    .logo{
-      width:40px; height:40px; border-radius:12px;
-      display:grid; place-items:center;
-      border:1px solid var(--line);
-      background: linear-gradient(135deg, rgba(124,92,255,.25), rgba(51,214,255,.18));
-    }
-    .brand strong{font-size:16px; letter-spacing:.2px}
-    .brand span{display:block; font-size:12px; color:var(--muted); margin-top:-2px}
-
-    .navlinks{display:flex; gap:14px; flex-wrap:wrap; justify-content:flex-end}
-    .navlinks a{
-      text-decoration:none;
-      font-size:13px;
-      color:var(--muted);
-      padding:8px 10px;
-      border-radius:12px;
-      border:1px solid transparent;
-    }
-    .navlinks a:hover{
-      color:var(--text);
-      border-color: var(--line);
-      background: rgba(255,255,255,.04);
-      transition: color .2s ease, border-color .2s ease, background .2s ease;
-    }
-
-    .hero{
-      display:grid;
-      grid-template-columns: 1.35fr .85fr;
-      gap:18px;
-      margin-top:18px;
-      align-items:stretch;
-    }
-    @media (max-width: 920px){
-      .hero{grid-template-columns:1fr}
-    }
-
-    .card{
-      border:1px solid var(--line);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.04);
-      box-shadow: var(--shadow);
-      padding:22px;
-      transition: box-shadow .25s ease, border-color .25s ease;
-    }
-    .card:hover{ box-shadow: 0 12px 36px rgba(0,0,0,.4); border-color: rgba(255,255,255,.14) }
-    @media (prefers-color-scheme: light){ .card:hover{ box-shadow: 0 12px 32px rgba(16,20,40,.12); border-color: rgba(16,20,40,.18) } }
-    @media (prefers-color-scheme: light){
-      .card{background: rgba(255,255,255,.9)}
-    }
-
-    h1{
-      margin:0 0 10px;
-      font-size: clamp(28px, 3.4vw, 46px);
-      line-height:1.12;
-      letter-spacing:-.6px;
-    }
-    .lead{
-      margin:0 0 16px;
-      font-size: 16px;
-      color: var(--muted);
-      max-width: 60ch;
-    }
-    .pillrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
-    .pill{
-      font-size:12px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color: var(--muted);
-      white-space:nowrap;
-    }
-
-    .cta{
-      display:flex; gap:10px; flex-wrap:wrap; margin-top:18px
-    }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center; gap:10px;
-      border-radius: 14px;
-      padding:11px 14px;
-      text-decoration:none;
-      border:1px solid var(--line);
-      font-size:13px;
-    }
-    .btn.primary{
-      border-color: transparent;
-      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(51,214,255,.75));
-      color:#061022;
-      font-weight:700;
-    }
-    .btn.secondary{
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-    }
-    .btn:hover{ opacity:.92; transition: opacity .2s ease }
-    .btn.primary:hover{ box-shadow: 0 4px 20px rgba(124,92,255,.35) }
-    .btn:disabled{ opacity:.5; cursor:not-allowed; pointer-events:none }
-
-    .mini h2{margin:0 0 12px; font-size:16px}
-    .mini p{margin:0; color:var(--muted); font-size:13px}
-    .mini .stack{margin-top:14px; display:grid; gap:10px}
-    .mini .item{
-      border:1px solid var(--line);
-      border-radius: 14px;
-      padding:12px;
-      background: rgba(255,255,255,.03);
-    }
-
-    section{margin-top:28px}
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-    }
-    @media (max-width: 920px){ .grid3{grid-template-columns:1fr} }
-
-    h2{
-      margin: 0 0 8px;
-      font-size: 18px;
-      letter-spacing:-.2px;
-    }
-    .muted{color:var(--muted)}
-    ul.clean{margin:10px 0 0; padding:0; list-style:none; display:grid; gap:10px}
-    ul.clean li{
-      padding:12px 12px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      background: rgba(255,255,255,.03);
-    }
-    .kicker{
-      font-size:12px; letter-spacing:.14em; text-transform:uppercase;
-      color: var(--muted);
-      margin: 0 0 10px;
-    }
-
-    .how{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
-      align-items:start;
-    }
-    @media (max-width: 920px){ .how{grid-template-columns:1fr} }
-
-    .steps{display:grid; gap:10px; margin-top:10px}
-    .step{
-      display:flex; gap:12px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      padding:12px;
-      background: rgba(255,255,255,.03);
-    }
-    .num{
-      width:30px; height:30px; border-radius:10px;
-      display:grid; place-items:center;
-      font-size:13px; font-weight:800;
-      color:#061022;
-      background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(51,214,255,.75));
-      flex:0 0 auto;
-    }
-
-    .footer{
-      margin-top:36px;
-      padding-top:20px;
-      border-top:1px solid var(--line);
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      color: var(--muted);
-      font-size:12px;
-    }
-
-    .form-input{
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      color: var(--text);
-      font: inherit;
-      transition: border-color .2s ease, box-shadow .2s ease;
-    }
-    .form-input:focus{ outline:none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,92,255,.2) }
-    @media (prefers-color-scheme: light){ .form-input{ background: rgba(16,20,40,.04) } }
-
-    /* Placeholder logo SVG sizing */
-    svg{display:block}
-    .logo svg{width:26px; height:26px}
-  </style>
+  <title>Fyrix — Micro Automation + Process Excellence</title>
+  <meta name="description" content="Here at Fyrix we build simple micro-automation apps that unlock reliable process data, reduce scrap, and drive measurable improvement in manufacturing." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-  <div class="wrap">
+  <div id="hero-bg" class="hero-bg" aria-hidden="true"></div>
 
-    <!-- NAV -->
-    <header class="nav">
-      <a class="brand" href="#top" aria-label="Fyrix home">
-        <div class="logo" aria-hidden="true">
-          <!-- LOGO PLACEHOLDER: Replace this SVG with your final logo mark -->
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M4 12c4-8 12-8 16 0-4 8-12 8-16 0Z" stroke="currentColor" stroke-width="1.8" opacity=".9"/>
-            <path d="M7 12c2.4-4.8 7.6-4.8 10 0-2.4 4.8-7.6 4.8-10 0Z" fill="currentColor" opacity=".35"/>
-            <path d="M12 7.5v9" stroke="currentColor" stroke-width="1.8" opacity=".9"/>
-          </svg>
-        </div>
-        <div>
-          <!-- NAME PLACEHOLDER -->
-          <strong>Fyrix</strong>
-          <span>Micro automation • Process excellence</span>
-        </div>
-      </a>
-
-      <nav class="navlinks" aria-label="Primary">
-        <a href="#services">Services</a>
-        <a href="#how">How we work</a>
-        <a href="#credibility">Experience</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
-
-    <!-- HERO -->
-    <main id="top" class="hero">
-      <section class="card">
-        <p class="kicker">Practical improvement, built with your people</p>
-        <h1>We build simple apps that unlock process data — then turn it into measurable improvement.</h1>
-        <p class="lead">
-          Fyrix works alongside your subject matter experts to map real processes, remove friction, and deliver
-          micro-automation tools that replace spreadsheets, paper, and manual admin. With clean data in place, we
-          reduce scrap, improve capability, and drive cost improvement that sticks.
-        </p>
-
-        <div class="cta">
-          <a class="btn primary" href="#contact">Book a discovery call</a>
-          <a class="btn secondary" href="#services">See what we deliver</a>
-        </div>
-
-        <div class="pillrow" aria-label="Key outcomes">
-          <div class="pill">Scrap reduction</div>
-          <div class="pill">KPI & dashboards</div>
-          <div class="pill">MSA & measurement systems</div>
-          <div class="pill">SOPs & standard work</div>
-          <div class="pill">Cost analysis & CIP delivery</div>
-        </div>
-      </section>
-
-      <aside class="card mini">
-        <h2>What “apps-first” means</h2>
-        <p>
-          We start with a small tool that captures the right data at source — then use it to drive targeted improvement.
-          Quick wins first, scalable foundations next.
-        </p>
-
-        <div class="stack">
-          <div class="item">
-            <strong>Capture</strong>
-            <p>Simple forms + validation to collect clean data (shop floor or office).</p>
-          </div>
-          <div class="item">
-            <strong>Visualise</strong>
-            <p>KPI dashboards, trending, and alerts that highlight what matters.</p>
-          </div>
-          <div class="item">
-            <strong>Improve</strong>
-            <p>Root cause, capability, scrap, and cost improvements backed by evidence.</p>
-          </div>
-        </div>
-      </aside>
-    </main>
-
-    <!-- SERVICES -->
-    <section id="services" class="card">
-      <p class="kicker">Services</p>
-      <h2>What we can deliver</h2>
-      <p class="muted">Delivered in small, practical chunks to keep cost down while still returning value.</p>
-
-      <div class="grid3" style="margin-top:14px">
-        <div class="card" style="padding:16px">
-          <h2>Micro-automation apps</h2>
-          <p class="muted">Purpose-built tools that replace manual admin and improve data quality.</p>
-          <ul class="clean">
-            <li>Data capture apps (desktop/web)</li>
-            <li>Digital checklists & forms</li>
-            <li>Automated reporting & dashboards</li>
-            <li>Lightweight integrations (where practical)</li>
-          </ul>
-        </div>
-
-        <div class="card" style="padding:16px">
-          <h2>Process excellence</h2>
-          <p class="muted">Structured improvement focused on measurable outcomes.</p>
-          <ul class="clean">
-            <li>Process mapping & waste identification</li>
-            <li>Scrap reduction & yield improvement</li>
-            <li>Cause & effect / root cause analysis</li>
-            <li>KPI definition & performance management</li>
-          </ul>
-        </div>
-
-        <div class="card" style="padding:16px">
-          <h2>Analysis & systems</h2>
-          <p class="muted">Make your measurement and decision-making reliable.</p>
-          <ul class="clean">
-            <li>Measurement System Analysis (MSA)</li>
-            <li>Measurement system creation</li>
-            <li>Statistical analysis & trending</li>
-            <li>Material / process data management</li>
-          </ul>
-        </div>
+  <header class="nav" role="banner">
+    <a class="brand" href="index.html" aria-label="Fyrix home">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M4 12c4-8 12-8 16 0-4 8-12 8-16 0Z" stroke="currentColor" stroke-width="1.8" opacity=".9"/>
+          <path d="M7 12c2.4-4.8 7.6-4.8 10 0-2.4 4.8-7.6 4.8-10 0Z" fill="currentColor" opacity=".35"/>
+          <path d="M12 7.5v9" stroke="currentColor" stroke-width="1.8" opacity=".9"/>
+        </svg>
       </div>
+      <div>
+        <strong>Fyrix</strong>
+        <span>Limited</span>
+      </div>
+    </a>
+    <nav class="navlinks" aria-label="Primary">
+      <a href="services.html">Services</a>
+      <a href="how.html">How we work</a>
+      <a href="experience.html">Experience</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
 
-      <div class="grid3" style="margin-top:14px">
-        <div class="card" style="padding:16px">
-          <h2>Cost improvement</h2>
-          <p class="muted">Identify, quantify, deliver, sustain.</p>
-          <ul class="clean">
-            <li>Cost analysis & opportunity sizing</li>
-            <li>Cost Improvement Projects (CIP)</li>
-            <li>Prioritisation & ROI tracking</li>
-          </ul>
-        </div>
+  <main>
+    <div class="company-hero animate-in">
+      <h1 class="company-name">Fyrix</h1>
+      <p class="company-limited">Limited</p>
+    </div>
 
-        <div class="card" style="padding:16px">
-          <h2>Standards & documentation</h2>
-          <p class="muted">Create clarity and consistency without bureaucracy.</p>
-          <ul class="clean">
-            <li>SOP creation & simplification</li>
-            <li>Standard work & training aids</li>
-            <li>Audit-ready records (as needed)</li>
-          </ul>
-        </div>
-
-        <div class="card" style="padding:16px">
-          <h2>R&amp;D & introductions</h2>
-          <p class="muted">Support change safely and efficiently.</p>
-          <ul class="clean">
-            <li>Brainstorming & structured ideation</li>
-            <li>New product/process introduction (NPI)</li>
-            <li>Risk-aware experimentation</li>
-          </ul>
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-content animate-in">
+        <p class="hero-kicker">Micro automation + process excellence</p>
+        <h2 id="hero-heading" class="hero-headline">Unlock process data. Reduce scrap. Drive improvement.</h2>
+        <p class="hero-subhead">Here at Fyrix we build simple apps that capture reliable data at source — then use it to cut cost and improve performance in manufacturing.</p>
+        <div class="hero-ctas">
+          <a href="contact.html" class="btn btn-primary">Request a Quote</a>
+          <a href="services.html" class="btn btn-secondary">Explore Capabilities</a>
         </div>
       </div>
     </section>
 
-    <!-- HOW -->
-    <section id="how" class="card">
-      <p class="kicker">How we work</p>
-      <h2>SME-led, mapped, built, improved</h2>
-
-      <div class="how">
-        <div>
-          <p class="muted">
-            We don’t arrive with a pre-made system. We start with your people — the SMEs who understand the process best —
-            and build solutions around how work actually happens.
-          </p>
-
-          <div class="steps">
-            <div class="step">
-              <div class="num">1</div>
-              <div>
-                <strong>Listen with SMEs</strong>
-                <div class="muted">Capture pain points, constraints, and what “good” looks like.</div>
-              </div>
-            </div>
-            <div class="step">
-              <div class="num">2</div>
-              <div>
-                <strong>Map the process</strong>
-                <div class="muted">Visualise flow, handoffs, data points, and failure modes.</div>
-              </div>
-            </div>
-            <div class="step">
-              <div class="num">3</div>
-              <div>
-                <strong>Build micro-automation</strong>
-                <div class="muted">A simple app that improves capture, consistency, and visibility.</div>
-              </div>
-            </div>
-            <div class="step">
-              <div class="num">4</div>
-              <div>
-                <strong>Improve & sustain</strong>
-                <div class="muted">KPIs, trending, root cause, and cost-back projects that stick.</div>
-              </div>
-            </div>
+    <section class="section capabilities" aria-labelledby="capabilities-heading">
+      <h2 id="capabilities-heading" class="section-title animate-in">Capabilities</h2>
+      <p class="section-subtitle animate-in">Delivered in practical chunks to keep cost down while returning value.</p>
+      <div class="card-grid">
+        <article class="card animate-in">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg>
           </div>
+          <h3>Micro-automation apps</h3>
+          <p>Purpose-built tools that replace manual admin: data capture, digital checklists, dashboards, and lightweight integrations.</p>
+          <a href="services.html#apps" class="card-link">Learn more</a>
+        </article>
+        <article class="card animate-in">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>Process excellence</h3>
+          <p>Process mapping, scrap reduction, root cause analysis, and KPI definition — focused on measurable outcomes.</p>
+          <a href="services.html#process" class="card-link">Learn more</a>
+        </article>
+        <article class="card animate-in">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3v18h18"/><path d="M7 14l4-4 4 4 5-5"/></svg>
+          </div>
+          <h3>Analysis & systems</h3>
+          <p>MSA, measurement system creation, statistical analysis, and data management — make decisions reliable.</p>
+          <a href="services.html#analysis" class="card-link">Learn more</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section process" aria-labelledby="process-heading">
+      <h2 id="process-heading" class="section-title animate-in">Our process</h2>
+      <p class="section-subtitle animate-in">SME-led, mapped, built, improved.</p>
+      <div class="timeline animate-in">
+        <div class="timeline-step">
+          <span class="timeline-num" aria-hidden="true">1</span>
+          <h3>Discover</h3>
+          <p>Listen to SMEs, capture pain points, constraints, and what “good” looks like.</p>
         </div>
-
-        <div>
-          <div class="card" style="padding:16px">
-            <h2>What you get quickly</h2>
-            <ul class="clean">
-              <li><strong>Clarity:</strong> a mapped view of how work flows and where it breaks.</li>
-              <li><strong>Control:</strong> clean data capture and standardised reporting.</li>
-              <li><strong>Focus:</strong> KPIs that drive action, not noise.</li>
-              <li><strong>Results:</strong> scrap, cost, or time improvements you can measure.</li>
-            </ul>
-          </div>
-
-          <div class="card" style="padding:16px; margin-top:14px">
-            <h2>Delivery style</h2>
-            <p class="muted">
-              We offer experience in small, practical chunks — keeping costs down while still delivering value and cost back
-              to the business.
-            </p>
-          </div>
+        <div class="timeline-step">
+          <span class="timeline-num" aria-hidden="true">2</span>
+          <h3>Design</h3>
+          <p>Map the process — flow, handoffs, data points, failure modes.</p>
+        </div>
+        <div class="timeline-step">
+          <span class="timeline-num" aria-hidden="true">3</span>
+          <h3>Prototype</h3>
+          <p>Build a simple app that improves capture, consistency, and visibility.</p>
+        </div>
+        <div class="timeline-step">
+          <span class="timeline-num" aria-hidden="true">4</span>
+          <h3>Manufacture</h3>
+          <p>Deploy and integrate with your workflows.</p>
+        </div>
+        <div class="timeline-step">
+          <span class="timeline-num" aria-hidden="true">5</span>
+          <h3>QC & improve</h3>
+          <p>KPIs, trending, root cause, and cost-back projects that stick.</p>
         </div>
       </div>
     </section>
 
-    <!-- CREDIBILITY / STORY -->
-    <section id="credibility" class="card">
-      <p class="kicker">Why Fyrix exists</p>
-      <h2>Medical-device discipline, delivered in an SME-friendly way</h2>
-      <p class="muted" style="max-width: 80ch">
-        Fyrix was conceived to pass on the skills and disciplines developed in the medical device industry — an environment
-        where continuous improvement is not optional, but essential. Through over <strong>40 years of combined experience</strong>
-        in a billion-dollar medical device manufacturer, we’ve benefited from extensive training in process excellence,
-        problem solving, and data-driven improvement, driven by a highly regulated and performance-critical sector.
-      </p>
-      <p class="muted" style="max-width: 80ch; margin-top:10px">
-        Large organisations can afford permanent teams to drive continuous improvement. We understand that this level of
-        resource is harder to sustain in small and medium-sized businesses. Fyrix bridges that gap by delivering
-        enterprise-level capability <strong>in practical, affordable steps</strong>.
-      </p>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="card">
-      <p class="kicker">Contact</p>
-      <h2>Let’s map one process and deliver one improvement</h2>
-      <p class="muted">Share a problem area and we’ll suggest a small first step with clear value.</p>
-
-      <div class="grid3" style="margin-top:14px">
-        <div class="card" style="padding:16px">
-          <h2>Email</h2>
-          <p class="muted"><a href="mailto:contact@fyrix.uk" class="contact-link">contact@fyrix.uk</a></p>
-        </div>
-        <div class="card" style="padding:16px">
-          <h2>Phone</h2>
-          <p class="muted">Get in touch via email and we’ll arrange a call.</p>
-        </div>
-        <div class="card" style="padding:16px">
-          <h2>Location</h2>
-          <p class="muted">Inverness / Highlands (or Remote)</p>
-        </div>
-      </div>
-
-      <div class="card contact-cta" style="padding:20px; margin-top:18px">
-        <p class="muted" style="margin:0">Fill in your details below and click Send — your email app will open with the message addressed to us.</p>
-      </div>
-
-      <div class="card" style="padding:20px; margin-top:14px">
-        <h2>Quick enquiry</h2>
-        <p class="muted" style="margin-top:-2px">Tell us about your process or problem and we’ll suggest a first step.</p>
-
-        <form id="contact-form" class="contact-form" style="display:grid; gap:12px; margin-top:16px">
-          <div style="display:grid; gap:10px; grid-template-columns: 1fr 1fr">
-            <label style="display:grid; gap:6px">
-              <span class="muted" style="font-size:12px">Name</span>
-              <input id="contact-name" name="name" placeholder="Your name" class="form-input" required />
-            </label>
-            <label style="display:grid; gap:6px">
-              <span class="muted" style="font-size:12px">Email</span>
-              <input id="contact-email" name="email" type="email" placeholder="you@company.co.uk" class="form-input" required />
-            </label>
-          </div>
-          <label style="display:grid; gap:6px">
-            <span class="muted" style="font-size:12px">What process or problem should we look at first?</span>
-            <textarea id="contact-message" name="message" rows="4" placeholder="e.g. scrap in assembly, manual data capture, inconsistent measurements…" class="form-input" style="resize:vertical" required></textarea>
-          </label>
-          <div style="display:flex; gap:10px; flex-wrap:wrap">
-            <button type="submit" id="contact-send" class="btn primary" disabled>Send</button>
-            <a class="btn secondary" href="#top">Back to top</a>
-          </div>
-        </form>
+    <section class="section cta-section" aria-labelledby="cta-heading">
+      <div class="cta-box animate-in">
+        <h2 id="cta-heading">Ready to unlock your process data?</h2>
+        <p>Book a discovery call — we’ll map one process and suggest a first step with clear value.</p>
+        <a href="contact.html" class="btn btn-primary btn-lg">Request a Quote</a>
       </div>
     </section>
+  </main>
 
-      <footer class="footer">
-        <div>© <span id="year"></span> <strong>Fyrix Limited</strong>. All rights reserved.</div>
-        <div class="muted"><a href="mailto:contact@fyrix.uk" class="contact-link">contact@fyrix.uk</a></div>
-    </footer>
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div>© <span id="year"></span> <strong>Fyrix Limited</strong></div>
+      <a href="mailto:contact@fyrix.uk" class="footer-link">contact@fyrix.uk</a>
+      <span class="footer-loc">Inverness / Highlands</span>
+    </div>
+  </footer>
 
-  </div>
-
-  <script>
-    // Current year in footer
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Contact form: enable Send when name, email and message are filled; send via mailto
-    (function () {
-      var form = document.getElementById("contact-form");
-      var nameInput = document.getElementById("contact-name");
-      var emailInput = document.getElementById("contact-email");
-      var messageInput = document.getElementById("contact-message");
-      var sendBtn = document.getElementById("contact-send");
-
-      function trim(s) { return (s || "").trim(); }
-      function canSend() {
-        return trim(nameInput.value).length > 0 &&
-               trim(emailInput.value).length > 0 &&
-               trim(messageInput.value).length > 0;
-      }
-      function updateButton() {
-        sendBtn.disabled = !canSend();
-      }
-
-      nameInput.addEventListener("input", updateButton);
-      nameInput.addEventListener("change", updateButton);
-      emailInput.addEventListener("input", updateButton);
-      emailInput.addEventListener("change", updateButton);
-      messageInput.addEventListener("input", updateButton);
-      messageInput.addEventListener("change", updateButton);
-
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-        if (!canSend()) return;
-        var name = trim(nameInput.value);
-        var email = trim(emailInput.value);
-        var message = trim(messageInput.value);
-        var subject = "Enquiry from fyrix.uk – " + name;
-        var body = "Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message;
-        var mailto = "mailto:contact@fyrix.uk?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-        window.location.href = mailto;
-      });
-    })();
-  </script>
+  <script src="main.js"></script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
 </body>
 </html>
